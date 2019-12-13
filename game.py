@@ -36,5 +36,5 @@ class Game:
 		temp = "temp"
 
 	def draw(self):
-		self.screen.fill((0,0,0))
+		self.screen.fill(pg.Color("red"))
 		pg.display.flip()
