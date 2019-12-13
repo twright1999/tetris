@@ -6,7 +6,7 @@ contains main game loop
 
 import pygame as pg
 
-from tetris import ball, board
+from tetris import ball, board, pieces_controller
 from utils import controls
 
 class Game:
@@ -19,7 +19,7 @@ class Game:
 		self.done = False
 		self.controls = controls.Controls()
 		self.board = board.Board(self.screen_size[1])
-		self.pieces = pieces.Pieces()
+		self.pieces_controller = pieces_controller.PiecesController()
 
 	def main(self):
 		"""contains main game loop"""
@@ -40,10 +40,13 @@ class Game:
 			if event.type == pg.QUIT:
 				self.done = True
 
+		keyboard_input = self.controls.get_input()
+		self.controls.set_first_press(self.pieces_controller.input(keyboard_input))
 
 	def update(self):
 		"""update all objects"""
-		self.ball.update()
+		self.board.board = self.pieces_controller.set_board(self.board.board)
+		self.pieces_controller.update()
 
 	def draw(self):
 		"""draw all objects"""

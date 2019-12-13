@@ -23,6 +23,6 @@ class Board:
 			for j in range(self.width):
 				pg.draw.rect(screen, pg.Color("gray"), (self.xpos+(self.cell_size*j),
 					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size), 1)
-				if self.board[i][j] != 0:
-					pg.draw.rect(screen, pg.Color("red"), (self.xpos+(self.cell_size*j),
+				if self.board[i][j] == 1:
+					pg.draw.rect(screen, pg.Color("cyan"), (self.xpos+(self.cell_size*j),
 					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
