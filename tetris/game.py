@@ -22,11 +22,12 @@ class Game:
 	def main(self):
 		"""contains main game loop"""
 		pg.init()
+		pg.display.set_caption(self.caption)
 		while not self.done:
 			self.input()
 			self.update()
 			self.draw()
-			self.clock.tick(60)
+			self.clock.tick(120)
 		pg.quit()
 
 	def input(self):
