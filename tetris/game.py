@@ -6,18 +6,20 @@ contains main game loop
 
 import pygame as pg
 
-from tetris import ball
+from tetris import ball, board
 from utils import controls
 
 class Game:
 	"""class which contains the main game loop"""
 	def __init__(self):
 		self.caption = "Tetris"
-		self.screen = pg.display.set_mode((800,400))
+		self.screen_size = (800,500)
+		self.screen = pg.display.set_mode(self.screen_size)
 		self.clock = pg.time.Clock()
 		self.done = False
 		self.controls = controls.Controls()
-		self.ball = ball.Ball()
+		self.board = board.Board(self.screen_size[1])
+		self.pieces = pieces.Pieces()
 
 	def main(self):
 		"""contains main game loop"""
@@ -38,7 +40,6 @@ class Game:
 			if event.type == pg.QUIT:
 				self.done = True
 
-		self.ball.input(self.controls.get_input())
 
 	def update(self):
 		"""update all objects"""
@@ -48,6 +49,6 @@ class Game:
 		"""draw all objects"""
 		self.screen.fill(pg.Color("white"))
 
-		self.ball.draw(self.screen)
+		self.board.draw(self.screen)
 
 		pg.display.flip()

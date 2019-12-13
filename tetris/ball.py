@@ -14,6 +14,7 @@ class Ball:
 		self.xvel = xv
 		self.yvel = yv
 		self.radius = r
+		self.color = pg.Color("red")
 
 		self.xdir = 0
 		self.ydir = 0
@@ -45,5 +46,5 @@ class Ball:
 
 	def draw(self, screen):
 		"""draw the ball"""
-		pg.draw.circle(screen, pg.Color("red"), (self.xpos,self.ypos), self.radius)
+		pg.draw.circle(screen, self.color, (self.xpos,self.ypos), self.radius)
 
