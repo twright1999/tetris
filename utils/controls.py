@@ -7,7 +7,7 @@ class for user inputs
 import pygame as pg
 
 class Controls:
-
+	"""class which contains booleans for the keyboard input"""
 	def __init__(self):
 		self.left = False
 		self.right = False
@@ -15,9 +15,11 @@ class Controls:
 		self.down = False 
 
 	def get_input(self):
+		"""return input as an array"""
 		return [self.left,self.right,self.up,self.down]
 
-	def check_user_input(self, event):
+	def check_keyboard_input(self, event):
+		"""checks input from the keyboard"""
 		if event.type == pg.KEYDOWN:
 			if event.key == pg.K_a:
 				self.left = True
