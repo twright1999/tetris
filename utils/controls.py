@@ -37,5 +37,5 @@ class Controls:
 				self.left = False
 				self.left_first = True
 			if event.key == pg.K_d:
-				self.left = False
+				self.right = False
 				self.right_first = True
