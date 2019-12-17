@@ -17,6 +17,7 @@ class Board:
 		self.height = 20
 		self.cell_size = math.floor((sh-self.ypos)/self.height)
 		self.board = np.zeros((self.height,self.width))
+		self.board_before_piece_drop = self.board
 
 	def draw(self, screen):
 		for i in range(self.height):

@@ -45,7 +45,7 @@ class Game:
 
 	def update(self):
 		"""update all objects"""
-		self.board.board = self.pieces_controller.set_board(self.board.board)
+		self.board.board = self.pieces_controller.set_board(self.board.board_before_piece_drop)
 		self.pieces_controller.update()
 
 	def draw(self):
