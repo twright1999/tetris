@@ -11,6 +11,8 @@ class Controls:
 	def __init__(self):
 		self.left = False
 		self.right = False
+		self.down = False
+		self.space = False
 		self.z = False
 		self.x = False
 		self.left_first = True
@@ -20,7 +22,7 @@ class Controls:
 
 	def get_input(self):
 		"""return input as an array"""
-		return [self.left,self.right,self.z,self.x, self.left_first, self.right_first, self.z_first, self.x_first]
+		return [self.left,self.right,self.down,self.space,self.z,self.x, self.left_first,self.right_first,self.z_first,self.x_first]
 
 	def set_first_press(self, first):
 		self.left_first = first[0]
@@ -35,6 +37,8 @@ class Controls:
 				self.left = True
 			if event.key == pg.K_RIGHT:
 				self.right = True
+			if event.key == pg.K_DOWN:
+				self.down = True
 			if event.key == pg.K_z:
 				self.z = True
 			if event.key == pg.K_x:
@@ -47,6 +51,8 @@ class Controls:
 			if event.key == pg.K_RIGHT:
 				self.right = False
 				self.right_first = True
+			if event.key == pg.K_DOWN:
+				self.down = False
 			if event.key == pg.K_z:
 				self.z = False
 				self.z_first = True

@@ -19,20 +19,24 @@ class PiecesController():
 		self.piece_vel = 0.1
 
 	def input(self, keyboard_input):
-		if keyboard_input[0] and keyboard_input[4]: # left
+		if keyboard_input[0] and keyboard_input[6]: # left
 			self.check_boundary(-1)
-			keyboard_input[4] = False
-		if keyboard_input[1] and keyboard_input[5]: # right
-			self.check_boundary(1)
-			keyboard_input[5] = False
-		if keyboard_input[2] and keyboard_input[6] and self.check_rotation(self.current_piece.get_acw()): # z
-			self.current_piece.rotate_cw()
 			keyboard_input[6] = False
-		if keyboard_input[3] and keyboard_input[7] and self.check_rotation(self.current_piece.get_cw()): # x
-			self.current_piece.rotate_acw()
+		if keyboard_input[1] and keyboard_input[7]: # right
+			self.check_boundary(1)
 			keyboard_input[7] = False
+		if keyboard_input[2]: # down
+			self.piece_vel = 0.3
+		else:
+			self.piece_vel = 0.1
+		if keyboard_input[4] and keyboard_input[8] and self.check_rotation(self.current_piece.get_acw()): # z
+			self.current_piece.rotate_cw()
+			keyboard_input[8] = False
+		if keyboard_input[5] and keyboard_input[9] and self.check_rotation(self.current_piece.get_cw()): # x
+			self.current_piece.rotate_acw()
+			keyboard_input[9] = False
 
-		return (keyboard_input[4],keyboard_input[5],keyboard_input[6],keyboard_input[7])
+		return (keyboard_input[6],keyboard_input[7],keyboard_input[8],keyboard_input[9])
 
 	def get_new_board(self, piece_grid, piece_xpos, piece_ypos):
 		board = np.copy(self.board.board_before_piece_drop)
