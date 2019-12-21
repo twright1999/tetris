@@ -69,6 +69,11 @@ class PiecesController():
 
 		if np.count_nonzero(self.board.board) == np.count_nonzero(board):
 			self.piece_ypos = new_ypos
+		else:
+			self.board.board_before_piece_drop = self.board.board
+			self.piece_xpos = 4
+			self.piece_ypos = 4
+
 
 	def update(self):
 		self.check_lock()
