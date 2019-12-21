@@ -40,7 +40,6 @@ class Controls:
 			if event.key == pg.K_x:
 				self.x = True
 
-
 		if event.type == pg.KEYUP:
 			if event.key == pg.K_LEFT:
 				self.left = False

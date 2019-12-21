@@ -17,14 +17,14 @@ class PiecesController():
 
 		self.piece_xpos = 4
 		self.piece_ypos = 4
-		self.piece_vel = 0.01
+		self.piece_vel = 0.1
 
 	def input(self, keyboard_input):
 		if keyboard_input[0] and keyboard_input[4]: # left
-			self.check_move(-1)
+			self.check_boundary(-1)
 			keyboard_input[4] = False
 		if keyboard_input[1] and keyboard_input[5]: # right
-			self.check_move(1)
+			self.check_boundary(1)
 			keyboard_input[5] = False
 		if keyboard_input[2] and keyboard_input[6] and self.check_rotation(self.current_piece.get_acw()): # z
 			self.current_piece.rotate_acw()
@@ -51,20 +51,27 @@ class PiecesController():
 	def check_rotation(self, new_rotation):
 		board = self.get_new_board(self.current_piece.rotations[new_rotation], self.piece_xpos, self.piece_ypos)
 
-		if np.count_nonzero(board) == 4:
+		if np.count_nonzero(self.board.board) == np.count_nonzero(board):
 			return True
 		else:
 			return False
 
-	def check_move(self, direction):
+	def check_boundary(self, direction):
 		new_xpos = self.piece_xpos + direction
 		board = self.get_new_board(self.current_piece.get_grid(), new_xpos, self.piece_ypos)
 
-		if np.count_nonzero(board) == 4:
+		if np.count_nonzero(self.board.board) == np.count_nonzero(board):
 			self.piece_xpos = new_xpos
 
+	def check_lock(self):
+		new_ypos = self.piece_ypos + self.piece_vel
+		board = self.get_new_board(self.current_piece.get_grid(), self.piece_xpos, new_ypos)
+
+		if np.count_nonzero(self.board.board) == np.count_nonzero(board):
+			self.piece_ypos = new_ypos
+
 	def update(self):
-		self.piece_ypos += self.piece_vel
+		self.check_lock()
 
 	def set_board(self):
 		return self.get_new_board(self.current_piece.get_grid(), self.piece_xpos, self.piece_ypos)
