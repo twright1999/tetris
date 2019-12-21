@@ -17,7 +17,7 @@ class PiecesController():
 
 		self.piece_xpos = 4
 		self.piece_ypos = 4
-		self.piece_vel = 0.1
+		self.piece_vel = 0.01
 
 	def input(self, keyboard_input):
 		if keyboard_input[0] and keyboard_input[4]: # left
@@ -35,17 +35,21 @@ class PiecesController():
 
 		return (keyboard_input[4],keyboard_input[5],keyboard_input[6],keyboard_input[7])
 
-	def check_rotation(self, new_rotation):
+	def get_new_board(self, piece_grid, piece_xpos, piece_ypos):
 		board = np.copy(self.board.board_before_piece_drop)
-		piece_grid = self.current_piece.rotations[new_rotation]
 		for i in range(len(piece_grid)):
 			for j in range(len(piece_grid[0])):
-				xpos = math.floor(self.piece_xpos+j)
-				ypos = math.floor(self.piece_ypos+i)
+				xpos = math.floor(piece_xpos+j)
+				ypos = math.floor(piece_ypos+i)
 
 				if 0 <= xpos < len(board[0]) and ypos < len(board):
 					board[ypos,xpos] = self.current_piece.state if (
 						piece_grid[i][j] == 1) else board[ypos,xpos]
+
+		return board
+
+	def check_rotation(self, new_rotation):
+		board = self.get_new_board(self.current_piece.rotations[new_rotation], self.piece_xpos, self.piece_ypos)
 
 		if np.count_nonzero(board) == 4:
 			return True
@@ -53,41 +57,17 @@ class PiecesController():
 			return False
 
 	def check_move(self, direction):
-		piece_grid = self.current_piece.get_grid()
-		furthest_left_arr = np.full(4,len(piece_grid))
-		furthest_right_arr = np.zeros(4)
+		new_xpos = self.piece_xpos + direction
+		board = self.get_new_board(self.current_piece.get_grid(), new_xpos, self.piece_ypos)
 
-		for i in range(len(piece_grid)):
-			for j in range(len(piece_grid[0])):
-				if piece_grid[i][j] == 1:
-					if furthest_left_arr[i] == len(piece_grid):
-						furthest_left_arr[i] = j
-					furthest_right_arr[i] = j
-
-		furthest_left = min(furthest_left_arr)
-		furthest_right = max(furthest_right_arr)
-
-		new_pos = self.piece_xpos + direction
-		if (0-furthest_left) <= new_pos < (self.board.width-furthest_right):
-			self.piece_xpos = new_pos	
+		if np.count_nonzero(board) == 4:
+			self.piece_xpos = new_xpos
 
 	def update(self):
-		# self.piece_ypos += self.piece_vel
-		print
+		self.piece_ypos += self.piece_vel
 
 	def set_board(self):
-		board = np.copy(self.board.board_before_piece_drop)
-		piece_grid = self.current_piece.get_grid()
-		for i in range(len(piece_grid)):
-			for j in range(len(piece_grid[0])):
-				xpos = math.floor(self.piece_xpos+j)
-				ypos = math.floor(self.piece_ypos+i)
-
-				if 0 <= xpos < len(board[0]) and ypos < len(board):
-					board[ypos,xpos] = self.current_piece.state if (
-						piece_grid[i][j] == 1) else board[ypos,xpos]
-
-		return board
+		return self.get_new_board(self.current_piece.get_grid(), self.piece_xpos, self.piece_ypos)
 
 	def set_current_piece(self, piece):
 		self.current_piece = piece
