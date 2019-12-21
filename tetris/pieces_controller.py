@@ -4,7 +4,7 @@ pieces_controller.py
 class for controlling all pieces
 """
 
-from .piece_classes import piece
+from . import piece
 import math
 import numpy as np
 
@@ -26,10 +26,10 @@ class PiecesController():
 			self.check_boundary(1)
 			keyboard_input[5] = False
 		if keyboard_input[2] and keyboard_input[6] and self.check_rotation(self.current_piece.get_acw()): # z
-			self.current_piece.rotate_acw()
+			self.current_piece.rotate_cw()
 			keyboard_input[6] = False
 		if keyboard_input[3] and keyboard_input[7] and self.check_rotation(self.current_piece.get_cw()): # x
-			self.current_piece.rotate_cw()
+			self.current_piece.rotate_acw()
 			keyboard_input[7] = False
 
 		return (keyboard_input[4],keyboard_input[5],keyboard_input[6],keyboard_input[7])
