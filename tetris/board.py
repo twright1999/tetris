@@ -27,3 +27,21 @@ class Board:
 				if self.board[i][j] == 1:
 					pg.draw.rect(screen, pg.Color("cyan"), (self.xpos+(self.cell_size*j),
 					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
+				if self.board[i][j] == 2:
+					pg.draw.rect(screen, pg.Color("purple"), (self.xpos+(self.cell_size*j),
+					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
+				if self.board[i][j] == 3:
+					pg.draw.rect(screen, pg.Color("yellow"), (self.xpos+(self.cell_size*j),
+					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
+				if self.board[i][j] == 4:
+					pg.draw.rect(screen, pg.Color("orange"), (self.xpos+(self.cell_size*j),
+					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
+				if self.board[i][j] == 5:
+					pg.draw.rect(screen, pg.Color("blue"), (self.xpos+(self.cell_size*j),
+					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
+				if self.board[i][j] == 6:
+					pg.draw.rect(screen, pg.Color("green"), (self.xpos+(self.cell_size*j),
+					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
+				if self.board[i][j] == 7:
+					pg.draw.rect(screen, pg.Color("red"), (self.xpos+(self.cell_size*j),
+					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))

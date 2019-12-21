@@ -4,7 +4,7 @@ pieces_controller.py
 class for controlling all pieces
 """
 
-from .piece_classes import piece_i
+from .piece_classes import piece
 import math
 import numpy as np
 
@@ -12,7 +12,7 @@ class PiecesController():
 
 	def __init__(self, board):
 		self.board = board
-		self.current_piece = piece_i.PieceI()
+		self.current_piece = self.get_random_piece()
 
 		self.piece_xpos = 3
 		self.piece_ypos = 0
@@ -72,7 +72,24 @@ class PiecesController():
 			self.board.board_before_piece_drop = self.board.board
 			self.piece_xpos = 3
 			self.piece_ypos = 0
-			self.current_piece = piece_i.PieceI()
+			self.current_piece = self.get_random_piece()
+
+	def get_random_piece(self):
+		random_number = np.random.randint(6)
+		if random_number == 0:
+			return piece.PieceI()
+		elif random_number == 1:
+			return piece.PieceT()
+		elif random_number == 2:
+			return piece.PieceO()
+		elif random_number == 3:
+			return piece.PieceL()
+		elif random_number == 4:
+			return piece.PieceJ()
+		elif random_number == 5:
+			return piece.PieceS()
+		elif random_number == 6:
+			return piece.PieceZ()
 
 
 	def update(self):
