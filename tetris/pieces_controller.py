@@ -16,7 +16,8 @@ class PiecesController():
 
 		self.piece_xpos = 3
 		self.piece_ypos = 0
-		self.piece_vel = 0.1
+		self.BASE_VEL = 0.1
+		self.piece_vel = self.BASE_VEL
 
 	def input(self, keyboard_input):
 		if keyboard_input[0] and keyboard_input[6]: # left
@@ -28,7 +29,7 @@ class PiecesController():
 		if keyboard_input[2]: # down
 			self.piece_vel = 0.3
 		else:
-			self.piece_vel = 0.1
+			self.piece_vel = self.BASE_VEL
 		if keyboard_input[3] and keyboard_input[8]: # space
 			self.hard_drop()
 			keyboard_input[8] = False
@@ -98,8 +99,8 @@ class PiecesController():
 
 			prev_board = board
 
-
 	def get_random_piece(self):
+		return piece.PieceO()
 		random_number = np.random.randint(6)
 		if random_number == 0:
 			return piece.PieceI()
@@ -115,7 +116,6 @@ class PiecesController():
 			return piece.PieceS()
 		elif random_number == 6:
 			return piece.PieceZ()
-
 
 	def update(self):
 		self.check_lock()

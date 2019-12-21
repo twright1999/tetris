@@ -45,3 +45,20 @@ class Board:
 				if self.board[i][j] == 7:
 					pg.draw.rect(screen, pg.Color("red"), (self.xpos+(self.cell_size*j),
 					self.ypos+(self.cell_size*i),self.cell_size,self.cell_size))
+
+	def check_line_break(self):
+		line_break = False
+		line_count = 0
+		for i in range(self.height-1,0,-1):
+			if np.count_nonzero(self.board_before_piece_drop[i]) == self.width:
+				line_break = True
+				line_count += 1
+			if line_break:
+				self.board_before_piece_drop[i] = self.board_before_piece_drop[i-1-line_count]
+				i -= 1
+		if line_break:
+			print(line_count)
+
+
+
+
