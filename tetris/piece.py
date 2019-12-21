@@ -4,8 +4,6 @@ piece.py
 parent class for pieces
 """
 
-import pygame as pg
-
 class Piece:
 
 	def __init__(self):

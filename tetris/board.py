@@ -56,8 +56,7 @@ class Board:
 			if line_break:
 				self.board_before_piece_drop[i] = self.board_before_piece_drop[i-1-line_count]
 				i -= 1
-		if line_break:
-			print(line_count)
+		return line_count
 
 
 

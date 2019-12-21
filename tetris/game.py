@@ -7,7 +7,7 @@ contains main game loop
 import pygame as pg
 
 from tetris import ball, board, pieces_controller
-from utils import controls
+from utils import controls, display
 
 class Game:
 	"""class which contains the main game loop"""
@@ -20,6 +20,7 @@ class Game:
 		self.controls = controls.Controls()
 		self.board = board.Board(self.screen_size[1])
 		self.pieces_controller = pieces_controller.PiecesController(self.board)
+		self.display = display.Display()
 
 	def main(self):
 		"""contains main game loop"""
@@ -47,12 +48,12 @@ class Game:
 		"""update all objects"""
 		self.board.board = self.pieces_controller.set_board()
 		self.pieces_controller.update()
-		self.board.check_line_break()
+		self.display.line_count = self.board.check_line_break()
 
 	def draw(self):
 		"""draw all objects"""
 		self.screen.fill(pg.Color("white"))
-
 		self.board.draw(self.screen)
+		self.display.draw(self.screen)
 
 		pg.display.flip()
