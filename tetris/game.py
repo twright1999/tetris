@@ -19,7 +19,7 @@ class Game:
 		self.done = False
 		self.controls = controls.Controls()
 		self.board = board.Board(self.screen_size[1])
-		self.pieces_controller = pieces_controller.PiecesController()
+		self.pieces_controller = pieces_controller.PiecesController(self.board)
 
 	def main(self):
 		"""contains main game loop"""
@@ -45,7 +45,7 @@ class Game:
 
 	def update(self):
 		"""update all objects"""
-		self.board.board = self.pieces_controller.set_board(self.board.board_before_piece_drop)
+		self.board.board = self.pieces_controller.set_board()
 		self.pieces_controller.update()
 
 	def draw(self):

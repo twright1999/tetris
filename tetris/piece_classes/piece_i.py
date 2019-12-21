@@ -31,6 +31,12 @@ class PieceI:
 						  	[0,1,0,0] ]]
 		self.current_rotation = 0
 
+	def get_cw(self):
+		return (self.current_rotation+1)%4
+
+	def get_acw(self):
+		return (self.current_rotation-1)%4
+
 	def rotate_cw(self):
 		self.current_rotation = (self.current_rotation+1)%4
 
