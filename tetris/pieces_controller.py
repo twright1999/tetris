@@ -12,11 +12,10 @@ class PiecesController():
 
 	def __init__(self, board):
 		self.board = board
-		self.i = piece_i.PieceI()
-		self.current_piece = self.i
+		self.current_piece = piece_i.PieceI()
 
-		self.piece_xpos = 4
-		self.piece_ypos = 4
+		self.piece_xpos = 3
+		self.piece_ypos = 0
 		self.piece_vel = 0.1
 
 	def input(self, keyboard_input):
@@ -71,8 +70,9 @@ class PiecesController():
 			self.piece_ypos = new_ypos
 		else:
 			self.board.board_before_piece_drop = self.board.board
-			self.piece_xpos = 4
-			self.piece_ypos = 4
+			self.piece_xpos = 3
+			self.piece_ypos = 0
+			self.current_piece = piece_i.PieceI()
 
 
 	def update(self):
