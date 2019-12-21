@@ -29,14 +29,17 @@ class PiecesController():
 			self.piece_vel = 0.3
 		else:
 			self.piece_vel = 0.1
-		if keyboard_input[4] and keyboard_input[8] and self.check_rotation(self.current_piece.get_acw()): # z
-			self.current_piece.rotate_cw()
+		if keyboard_input[3] and keyboard_input[8]: # space
+			self.hard_drop()
 			keyboard_input[8] = False
-		if keyboard_input[5] and keyboard_input[9] and self.check_rotation(self.current_piece.get_cw()): # x
-			self.current_piece.rotate_acw()
+		if keyboard_input[4] and keyboard_input[9] and self.check_rotation(self.current_piece.get_acw()): # z
+			self.current_piece.rotate_cw()
 			keyboard_input[9] = False
+		if keyboard_input[5] and keyboard_input[10] and self.check_rotation(self.current_piece.get_cw()): # x
+			self.current_piece.rotate_acw()
+			keyboard_input[10] = False
 
-		return (keyboard_input[6],keyboard_input[7],keyboard_input[8],keyboard_input[9])
+		return (keyboard_input[6],keyboard_input[7],keyboard_input[8],keyboard_input[9],keyboard_input[10])
 
 	def get_new_board(self, piece_grid, piece_xpos, piece_ypos):
 		board = np.copy(self.board.board_before_piece_drop)
@@ -77,6 +80,24 @@ class PiecesController():
 			self.piece_xpos = 3
 			self.piece_ypos = 0
 			self.current_piece = self.get_random_piece()
+
+	def hard_drop(self):
+		dropping = True
+		new_ypos = self.piece_ypos
+		prev_board = self.board.board
+		while(dropping):
+			new_ypos += 1
+			board = self.get_new_board(self.current_piece.get_grid(), self.piece_xpos, new_ypos)
+
+			if np.count_nonzero(self.board.board) != np.count_nonzero(board):
+				dropping = False
+				self.board.board_before_piece_drop = prev_board
+				self.piece_xpos = 3
+				self.piece_ypos = 0
+				self.current_piece = self.get_random_piece()
+
+			prev_board = board
+
 
 	def get_random_piece(self):
 		random_number = np.random.randint(6)
