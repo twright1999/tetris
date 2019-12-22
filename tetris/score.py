@@ -4,7 +4,6 @@ score.py
 class for manageing the score and level
 """
 
-from utils import display
 import pygame as pg
 
 class Score:
