@@ -51,11 +51,15 @@ class Board:
 		line_count = 0
 		for i in range(self.height-1,0,-1):
 			if np.count_nonzero(self.board_before_piece_drop[i]) == self.width:
+				self.board_before_piece_drop[i] = 0
 				line_break = True
 				line_count += 1
-			if line_break:
-				self.board_before_piece_drop[i] = self.board_before_piece_drop[i-1-line_count]
-				i -= 1
+			elif line_break:
+				self.board_before_piece_drop[i+line_count] = self.board_before_piece_drop[i]
+
+		if line_break:
+			self.board_before_piece_drop[0:line_count] = 0
+
 		return line_count
 
 
