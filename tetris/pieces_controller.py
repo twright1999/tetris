@@ -100,7 +100,6 @@ class PiecesController():
 			prev_board = board
 
 	def get_random_piece(self):
-		return piece.PieceO()
 		random_number = np.random.randint(6)
 		if random_number == 0:
 			return piece.PieceI()

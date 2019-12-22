@@ -48,7 +48,7 @@ class Game:
 		"""update all objects"""
 		self.board.board = self.pieces_controller.set_board()
 		self.pieces_controller.update()
-		self.display.line_count = self.board.check_line_break()
+		self.display.set_line_count(self.board.check_line_break())
 
 	def draw(self):
 		"""draw all objects"""

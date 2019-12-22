@@ -49,7 +49,7 @@ class Board:
 	def check_line_break(self):
 		line_break = False
 		line_count = 0
-		for i in range(self.height-1,0,-1):
+		for i in range(self.height-1,-1,-1):
 			if np.count_nonzero(self.board_before_piece_drop[i]) == self.width:
 				self.board_before_piece_drop[i] = 0
 				line_break = True
