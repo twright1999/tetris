@@ -55,5 +55,6 @@ class Game:
 		self.screen.fill(pg.Color("white"))
 		self.board.draw(self.screen)
 		self.score.draw(self.screen)
+		self.pieces_controller.draw_hold(self.screen)
 
 		pg.display.flip()

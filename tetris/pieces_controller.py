@@ -7,6 +7,7 @@ class for controlling all pieces
 from . import piece
 import math
 import numpy as np
+import pygame as pg
 
 class PiecesController():
 
@@ -131,6 +132,16 @@ class PiecesController():
 		self.hold_piece = self.current_piece
 
 		self.current_piece = temp if temp != None else self.get_random_piece()
+
+	def draw_hold(self, screen):
+		if self.hold_piece != None:
+			piece_grid = self.hold_piece.get_grid()
+
+			for i in range(len(piece_grid)):
+				for j in range(len(piece_grid[0])):
+					if piece_grid[i][j] == 1:
+						pg.draw.rect(screen, self.hold_piece.color, (j*10,i*10,10,10))
+
 
 
 	def update(self):
