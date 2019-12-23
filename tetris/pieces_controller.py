@@ -15,6 +15,8 @@ class PiecesController():
 		self.board = board
 		self.current_piece = self.get_random_piece()
 		self.hold_piece = None
+		self.queue = [self.get_random_piece(),self.get_random_piece(),self.get_random_piece(),
+					  self.get_random_piece(),self.get_random_piece()]
 
 		self.piece_xpos = 3
 		self.piece_ypos = 0
@@ -84,7 +86,7 @@ class PiecesController():
 		else:
 			self.board.board_before_piece_drop = self.board.board
 			self.reset_piece()
-			self.current_piece = self.get_random_piece()
+			self.next_piece()
 
 	def hard_drop(self):
 		dropping = True
@@ -98,7 +100,7 @@ class PiecesController():
 				dropping = False
 				self.board.board_before_piece_drop = prev_board
 				self.reset_piece()
-				self.current_piece = self.get_random_piece()
+				self.next_piece()
 
 			prev_board = board
 
@@ -124,6 +126,14 @@ class PiecesController():
 		self.piece_ypos = 0
 		self.current_piece.current_rotation = 0
 
+	def next_piece(self):
+		self.current_piece = self.queue[0]
+
+		for i in range(4):
+			self.queue[i] = self.queue[i+1]
+
+		self.queue[4] = self.get_random_piece()
+
 
 	def hold(self):
 		self.reset_piece()
@@ -133,6 +143,10 @@ class PiecesController():
 
 		self.current_piece = temp if temp != None else self.get_random_piece()
 
+	def draw(self, screen):
+		self.draw_hold(screen)
+		self.draw_queue(screen)
+
 	def draw_hold(self, screen):
 		if self.hold_piece != None:
 			piece_grid = self.hold_piece.get_grid()
@@ -140,8 +154,16 @@ class PiecesController():
 			for i in range(len(piece_grid)):
 				for j in range(len(piece_grid[0])):
 					if piece_grid[i][j] == 1:
-						pg.draw.rect(screen, self.hold_piece.color, (j*10,i*10,10,10))
+						pg.draw.rect(screen, self.hold_piece.color, (j*10,i*10,10,10)) # todo, draw relative to board
 
+	def draw_queue(self, screen):
+		for p in range(len(self.queue)):
+			piece_grid = self.queue[p].get_grid()
+
+			for i in range(len(piece_grid)):
+				for j in range(len(piece_grid[0])):
+					if piece_grid[i][j] == 1:
+						pg.draw.rect(screen, self.queue[p].color, (500+j*10,50*p+(i*10),10,10)) # todo, draw relative to board
 
 
 	def update(self):
