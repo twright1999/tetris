@@ -11,8 +11,9 @@ import pygame as pg
 
 class PiecesController:
 
-	def __init__(self, board):
+	def __init__(self, board, score):
 		self.board = board
+		self.score = score
 		self.current_piece = self.get_random_piece()
 		self.hold_piece = None
 		self.queue = [self.get_random_piece(),self.get_random_piece(),self.get_random_piece(),
@@ -20,7 +21,7 @@ class PiecesController:
 
 		self.piece_xpos = 3
 		self.piece_ypos = 0
-		self.BASE_VEL = 0.1
+		self.BASE_VEL = 0.02
 		self.piece_vel = self.BASE_VEL
 
 	def input(self, keyboard_input):
@@ -31,9 +32,9 @@ class PiecesController:
 			self.check_boundary(1)
 			keyboard_input[8] = False
 		if keyboard_input[2]: # down
-			self.piece_vel = 0.3
+			self.piece_vel = 0.4
 		else:
-			self.piece_vel = self.BASE_VEL
+			self.calc_piece_vel()
 		if keyboard_input[3] and keyboard_input[9]: # space
 			self.hard_drop()
 			keyboard_input[9] = False
@@ -86,7 +87,7 @@ class PiecesController:
 		else:
 			self.board.board_before_piece_drop = self.board.board
 			self.reset_piece()
-			self.next_piece()
+			self.current_piece = self.next_piece()
 
 	def hard_drop(self):
 		dropping = True
@@ -100,7 +101,7 @@ class PiecesController:
 				dropping = False
 				self.board.board_before_piece_drop = prev_board
 				self.reset_piece()
-				self.next_piece()
+				self.current_piece = self.next_piece()
 
 			prev_board = board
 
@@ -127,12 +128,13 @@ class PiecesController:
 		self.current_piece.current_rotation = 0
 
 	def next_piece(self):
-		self.current_piece = self.queue[0]
-
+		next_p = self.queue[0]
 		for i in range(len(self.queue)-1):
 			self.queue[i] = self.queue[i+1]
 
 		self.queue[len(self.queue)-1] = self.get_random_piece()
+
+		return next_p
 
 	def hold(self):
 		self.reset_piece()
@@ -140,7 +142,7 @@ class PiecesController:
 		temp = self.hold_piece
 		self.hold_piece = self.current_piece
 
-		self.current_piece = temp if temp != None else self.get_random_piece()
+		self.current_piece = temp if temp != None else self.next_piece()
 
 	def draw(self, screen):
 		self.draw_hold(screen)
@@ -169,6 +171,10 @@ class PiecesController:
 
 	def update(self):
 		self.check_lock()
+		print(self.piece_vel)
+
+	def calc_piece_vel(self):
+		self.piece_vel = self.BASE_VEL + (self.score.level-1)*self.BASE_VEL
 
 	def set_board(self):
 		return self.get_new_board(self.current_piece.get_grid(), self.piece_xpos, self.piece_ypos)

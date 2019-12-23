@@ -19,8 +19,8 @@ class Game:
 		self.done = False
 		self.controls = controls.Controls()
 		self.board = board.Board(self.screen_size[1])
-		self.pieces_controller = pieces_controller.PiecesController(self.board)
 		self.score = score.Score(self.board)
+		self.pieces_controller = pieces_controller.PiecesController(self.board,self.score)
 
 	def main(self):
 		"""contains main game loop"""
@@ -47,6 +47,7 @@ class Game:
 	def update(self):
 		"""update all objects"""
 		self.board.board = self.pieces_controller.set_board()
+		self.score.update()
 		self.pieces_controller.update()
 		self.score.set_score(self.board.check_line_break())
 
