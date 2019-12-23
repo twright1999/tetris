@@ -129,11 +129,10 @@ class PiecesController():
 	def next_piece(self):
 		self.current_piece = self.queue[0]
 
-		for i in range(4):
+		for i in range(len(self.queue)-1):
 			self.queue[i] = self.queue[i+1]
 
-		self.queue[4] = self.get_random_piece()
-
+		self.queue[len(self.queue)-1] = self.get_random_piece()
 
 	def hold(self):
 		self.reset_piece()
@@ -154,7 +153,8 @@ class PiecesController():
 			for i in range(len(piece_grid)):
 				for j in range(len(piece_grid[0])):
 					if piece_grid[i][j] == 1:
-						pg.draw.rect(screen, self.hold_piece.color, (j*10,i*10,10,10)) # todo, draw relative to board
+						pg.draw.rect(screen, self.hold_piece.color,
+							 (self.board.xpos+j*10,self.board.ypos-50+i*10,10,10))
 
 	def draw_queue(self, screen):
 		for p in range(len(self.queue)):
@@ -163,7 +163,8 @@ class PiecesController():
 			for i in range(len(piece_grid)):
 				for j in range(len(piece_grid[0])):
 					if piece_grid[i][j] == 1:
-						pg.draw.rect(screen, self.queue[p].color, (500+j*10,50*p+(i*10),10,10)) # todo, draw relative to board
+						pg.draw.rect(screen, self.queue[p].color, 
+							(10+(self.board.width*self.board.cell_size+j*10),self.board.ypos+(50*p+(i*10)),10,10))
 
 
 	def update(self):
