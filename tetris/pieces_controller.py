@@ -171,7 +171,6 @@ class PiecesController:
 
 	def update(self):
 		self.check_lock()
-		print(self.piece_vel)
 
 	def calc_piece_vel(self):
 		self.piece_vel = self.BASE_VEL + (self.score.level-1)*self.BASE_VEL
