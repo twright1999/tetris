@@ -7,9 +7,10 @@ class for manageing the score and level
 import pygame as pg
 
 class Score:
-	def __init__(self):
+	def __init__(self,board):
 		self.level = 1
 		self.score = 0
+		self.board = board
 
 	def set_score(self, line_count):
 		if line_count == 1:
@@ -22,6 +23,7 @@ class Score:
 			self.score += 800*self.level
 
 	def draw(self, screen):
-		font = pg.font.Font('freesansbold.ttf',115)
-		textsurface = font.render(str(self.score), False, (0, 0, 0))
-		screen.blit(textsurface,(250,0))
+		font = pg.font.Font('freesansbold.ttf',30)
+		string = "score: " + str(self.score)
+		textsurface = font.render(string, False, (0, 0, 0))
+		screen.blit(textsurface,(100+self.board.xpos+self.board.width*self.board.cell_size,self.board.ypos))

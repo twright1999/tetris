@@ -20,7 +20,7 @@ class Game:
 		self.controls = controls.Controls()
 		self.board = board.Board(self.screen_size[1])
 		self.pieces_controller = pieces_controller.PiecesController(self.board)
-		self.score = score.Score()
+		self.score = score.Score(self.board)
 
 	def main(self):
 		"""contains main game loop"""

@@ -9,7 +9,7 @@ import math
 import numpy as np
 import pygame as pg
 
-class PiecesController():
+class PiecesController:
 
 	def __init__(self, board):
 		self.board = board
